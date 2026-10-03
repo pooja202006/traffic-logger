@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% block title %}Edit Violation – Smart Traffic Logger{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+
+  <div class="page-header d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <h1 class="page-title mb-1"><i class="bi bi-pencil-square me-2"></i>Edit Violation</h1>
+      <p class="page-subtitle mb-0">Challan: <strong>{{ violation.challan_number }}</strong></p>
+    </div>
+    <a href="{{ url_for('violations.view_violation', violation_id=violation.id) }}" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Details
+    </a>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-xl-8 col-lg-10">
+      <div class="section-card">
+        <div class="section-card-header">
+          <h5 class="mb-0"><i class="bi bi-pencil-fill me-2"></i>Update Violation Details</h5>
+        </div>
+        <div class="card-body p-4">
+
+          <!-- Challan info (read-only) -->
+          <div class="alert alert-info-dark mb-4 d-flex align-items-center gap-3">
+            <i class="bi bi-lock-fill fs-5"></i>
+            <div>
+              <strong>Challan Number:</strong> {{ violation.challan_number }} &nbsp;|&nbsp;
+              <strong>Status:</strong>
+              {% if violation.payment_status == 'Paid' %}
+                <span class="badge badge-paid ms-1">Paid</span>
+              {% else %}
+                <span class="badge badge-unpaid ms-1">Unpaid</span>
+              {% endif %}
+              &nbsp;(Payment status is not changed during edit)
+            </div>
+          </div>
+
+          <form method="POST" action="{{ url_for('violations.edit_violation', violation_id=violation.id) }}" novalidate>
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <label for="vehicle_number" class="form-label fw-600">
+                  <i class="bi bi-car-front-fill me-1 text-primary"></i>Vehicle Number <span class="text-danger">*</span>
+                </label>
+                <input type="text" class="form-control form-control-dark" id="vehicle_number"
+                       name="vehicle_number" value="{{ violation.vehicle_number }}"
+                       style="text-transform:uppercase;" required/>
+              </div>
+
+              <div class="col-md-6">
+                <label for="violation_type" class="form-label fw-600">
+                  <i class="bi bi-exclamation-triangle-fill me-1 text-warning"></i>Violation Type <span class="text-danger">*</span>
+                </label>
+                <select class="form-select form-select-dark" id="violation_type" name="violation_type" required>
+                  {% for vt in violation_types %}
+                    <option value="{{ vt }}" {% if violation.violation_type == vt %}selected{% endif %}>{{ vt }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-12">
+                <label for="location" class="form-label fw-600">
+                  <i class="bi bi-geo-alt-fill me-1 text-danger"></i>Location <span class="text-danger">*</span>
+                </label>
+                <input type="text" class="form-control form-control-dark" id="location"
+                       name="location" value="{{ violation.location }}" required/>
+              </div>
+
+              <div class="col-md-6">
+                <label for="violation_date" class="form-label fw-600">
+                  <i class="bi bi-calendar-event-fill me-1 text-info"></i>Violation Date <span class="text-danger">*</span>
+                </label>
+                <input type="date" class="form-control form-control-dark" id="violation_date"
+                       name="violation_date"
+                       value="{{ violation.violation_date.strftime('%Y-%m-%d') }}" required/>
+              </div>
+
+              <div class="col-md-6">
+                <label for="fine_amount" class="form-label fw-600">
+                  <i class="bi bi-currency-rupee me-1 text-success"></i>Fine Amount (₹) <span class="text-danger">*</span>
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text form-control-dark">₹</span>
+                  <input type="number" class="form-control form-control-dark" id="fine_amount"
+                         name="fine_amount" value="{{ violation.fine_amount }}"
+                         min="1" step="0.01" required/>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex gap-3 mt-4">
+              <button type="submit" class="btn btn-warning-custom btn-lg flex-fill">
+                <i class="bi bi-save-fill me-2"></i>Update Violation
+              </button>
+              <a href="{{ url_for('violations.view_violation', violation_id=violation.id) }}" class="btn btn-outline-secondary btn-lg">
+                Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

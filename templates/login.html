@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Login – Smart Traffic Logger{% endblock %}
+
+{% block content %}
+<div class="auth-page d-flex align-items-center justify-content-center min-vh-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-4 col-lg-5 col-md-7 col-sm-10">
+
+        <div class="auth-card card border-0 shadow-lg">
+          <div class="card-body p-5">
+
+            <!-- Logo -->
+            <div class="text-center mb-4">
+              <div class="auth-logo mx-auto mb-3">
+                <i class="bi bi-shield-fill-check"></i>
+              </div>
+              <h1 class="h3 fw-bold text-white mb-1">Smart Traffic Logger</h1>
+              <p class="text-muted-light small">Traffic Officer Portal</p>
+            </div>
+
+            <form method="POST" action="{{ url_for('auth.login') }}" novalidate>
+              <div class="mb-3">
+                <label for="identifier" class="form-label text-light fw-500">Username or Email</label>
+                <div class="input-group input-group-dark">
+                  <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                  <input type="text" class="form-control" id="identifier" name="identifier"
+                         placeholder="Enter username or email"
+                         value="{{ request.form.get('identifier', '') }}" required autofocus/>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label for="password" class="form-label text-light fw-500">Password</label>
+                <div class="input-group input-group-dark">
+                  <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                  <input type="password" class="form-control" id="password" name="password"
+                         placeholder="Enter your password" required/>
+                  <button class="input-group-text btn-toggle-pw" type="button" id="togglePw" title="Show/Hide Password">
+                    <i class="bi bi-eye-fill" id="togglePwIcon"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="mb-4 d-flex align-items-center">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="remember" name="remember"/>
+                  <label class="form-check-label text-light small" for="remember">Remember me</label>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary-custom w-100 btn-lg fw-600">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+              </button>
+            </form>
+
+            <hr class="my-4 border-secondary"/>
+            <p class="text-center text-muted-light small mb-0">
+              New officer?
+              <a href="{{ url_for('auth.register') }}" class="auth-link">Register here</a>
+            </p>
+
+          </div>
+        </div>
+
+        <p class="text-center text-muted small mt-3">
+          &copy; 2026 Smart Traffic Violation Logger
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

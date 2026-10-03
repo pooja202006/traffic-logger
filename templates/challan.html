@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}Challan {{ violation.challan_number }}{% endblock %}
+
+{% block extra_css %}
+<style>
+@media print {
+  body * { visibility: hidden !important; }
+  #challanPrintArea, #challanPrintArea * { visibility: visible !important; }
+  #challanPrintArea {
+    position: fixed !important;
+    left: 0; top: 0;
+    width: 100%;
+    background: #fff !important;
+    color: #000 !important;
+    padding: 20px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .no-print { display: none !important; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+  <!-- Toolbar -->
+  <div class="d-flex align-items-center justify-content-between mb-4 no-print">
+    <a href="{{ url_for('violations.view_violation', violation_id=violation.id) }}" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left me-2"></i>Back to Details
+    </a>
+    <button class="btn btn-primary-custom" onclick="window.print()">
+      <i class="bi bi-printer-fill me-2"></i>Print Challan
+    </button>
+  </div>
+
+  <!-- Challan Print Area -->
+  <div class="row justify-content-center">
+    <div class="col-xl-7 col-lg-9">
+      <div id="challanPrintArea" class="challan-card">
+
+        <!-- Header -->
+        <div class="challan-header text-center">
+          <div class="challan-govt-logo mb-2">🏛️</div>
+          <h2 class="challan-title">TRAFFIC VIOLATION CHALLAN</h2>
+          <p class="challan-subtitle">Government Traffic Management Authority</p>
+          <div class="challan-divider"></div>
+        </div>
+
+        <!-- Challan Number Banner -->
+        <div class="challan-number-banner text-center py-2 mb-3">
+          <span class="challan-number-label">CHALLAN NUMBER: </span>
+          <span class="challan-number-value">{{ violation.challan_number }}</span>
+        </div>
+
+        <!-- Status Badge -->
+        <div class="text-center mb-3">
+          {% if violation.payment_status == 'Paid' %}
+            <span class="challan-status-paid">✔ PAID</span>
+          {% else %}
+            <span class="challan-status-unpaid">⏱ PAYMENT PENDING</span>
+          {% endif %}
+        </div>
+
+        <!-- Details Table -->
+        <div class="challan-details-section mb-3">
+          <table class="challan-table w-100">
+            <tbody>
+              <tr>
+                <td class="challan-field-label">Vehicle Number</td>
+                <td class="challan-field-value fw-bold">{{ violation.vehicle_number }}</td>
+                <td class="challan-field-label">Violation Date</td>
+                <td class="challan-field-value">{{ violation.violation_date.strftime('%d %B %Y') }}</td>
+              </tr>
+              <tr>
+                <td class="challan-field-label">Violation Type</td>
+                <td class="challan-field-value" colspan="3">{{ violation.violation_type }}</td>
+              </tr>
+              <tr>
+                <td class="challan-field-label">Location</td>
+                <td class="challan-field-value" colspan="3">{{ violation.location }}</td>
+              </tr>
+              <tr>
+                <td class="challan-field-label">Fine Amount</td>
+                <td class="challan-field-value fw-bold fine-highlight">₹{{ "%.2f"|format(violation.fine_amount) }}</td>
+                <td class="challan-field-label">Payment Status</td>
+                <td class="challan-field-value">{{ violation.payment_status }}</td>
+              </tr>
+              <tr>
+                <td class="challan-field-label">Issued On</td>
+                <td class="challan-field-value" colspan="3">{{ violation.created_at.strftime('%d %B %Y, %I:%M %p') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- QR Code + Instructions -->
+        <div class="challan-footer-section">
+          <div class="row align-items-center">
+            <div class="col-4 text-center">
+              {% if violation.qr_code_filename %}
+                <img src="{{ url_for('static', filename='qrcodes/' + violation.qr_code_filename) }}"
+                     alt="QR Code" class="challan-qr-img"/>
+                <p class="challan-qr-text mt-1">Scan for status</p>
+              {% else %}
+                <div class="challan-qr-placeholder">QR</div>
+              {% endif %}
+            </div>
+            <div class="col-8">
+              <div class="challan-instructions">
+                <p class="fw-bold mb-1">Payment Instructions:</p>
+                <ul class="mb-0 small">
+                  <li>Pay the fine at the nearest Traffic Authority Office</li>
+                  <li>Or scan the QR code to view payment status online</li>
+                  <li>Keep this challan for your records</li>
+                  <li>Failure to pay may result in additional penalties</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Stamp Area -->
+        <div class="challan-stamp-area mt-3">
+          <div class="row">
+            <div class="col-6 text-center">
+              <div class="challan-sig-line"></div>
+              <p class="challan-sig-label">Issuing Officer Signature</p>
+            </div>
+            <div class="col-6 text-center">
+              <div class="challan-sig-line"></div>
+              <p class="challan-sig-label">Official Stamp</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

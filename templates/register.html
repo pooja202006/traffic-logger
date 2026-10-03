@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Register – Smart Traffic Logger{% endblock %}
+
+{% block content %}
+<div class="auth-page d-flex align-items-center justify-content-center min-vh-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-4 col-lg-5 col-md-7 col-sm-10">
+
+        <div class="auth-card card border-0 shadow-lg">
+          <div class="card-body p-5">
+
+            <div class="text-center mb-4">
+              <div class="auth-logo mx-auto mb-3">
+                <i class="bi bi-person-plus-fill"></i>
+              </div>
+              <h1 class="h3 fw-bold text-white mb-1">Officer Registration</h1>
+              <p class="text-muted-light small">Create your traffic officer account</p>
+            </div>
+
+            <form method="POST" action="{{ url_for('auth.register') }}" novalidate>
+              <div class="mb-3">
+                <label for="username" class="form-label text-light fw-500">Username</label>
+                <div class="input-group input-group-dark">
+                  <span class="input-group-text"><i class="bi bi-person-badge-fill"></i></span>
+                  <input type="text" class="form-control" id="username" name="username"
+                         placeholder="Choose a username"
+                         value="{{ username or '' }}" required autofocus/>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="email" class="form-label text-light fw-500">Email Address</label>
+                <div class="input-group input-group-dark">
+                  <span class="input-group-text"><i class="bi bi-envelope-fill"></i></span>
+                  <input type="email" class="form-control" id="email" name="email"
+                         placeholder="Official email address"
+                         value="{{ email or '' }}" required/>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="password" class="form-label text-light fw-500">Password</label>
+                <div class="input-group input-group-dark">
+                  <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                  <input type="password" class="form-control" id="password" name="password"
+                         placeholder="Minimum 6 characters" required/>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label for="confirm_password" class="form-label text-light fw-500">Confirm Password</label>
+                <div class="input-group input-group-dark">
+                  <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                  <input type="password" class="form-control" id="confirm_password" name="confirm_password"
+                         placeholder="Re-enter your password" required/>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary-custom w-100 btn-lg fw-600">
+                <i class="bi bi-person-check-fill me-2"></i>Register
+              </button>
+            </form>
+
+            <hr class="my-4 border-secondary"/>
+            <p class="text-center text-muted-light small mb-0">
+              Already registered?
+              <a href="{{ url_for('auth.login') }}" class="auth-link">Login here</a>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

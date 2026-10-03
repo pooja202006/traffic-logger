@@ -1,0 +1,522 @@
+/* =============================================
+   SMART TRAFFIC VIOLATION LOGGER – style.css
+   ============================================= */
+
+/* ---------- Root Variables ---------- */
+:root {
+  --bg-primary:    #0f172a;
+  --bg-secondary:  #1e293b;
+  --bg-card:       #1e293b;
+  --bg-card-inner: #0f172a;
+  --border-color:  rgba(255,255,255,0.08);
+  --text-primary:  #f1f5f9;
+  --text-secondary:#94a3b8;
+  --text-muted:    #64748b;
+  --accent-blue:   #38bdf8;
+  --accent-indigo: #6366f1;
+  --accent-green:  #22c55e;
+  --accent-red:    #ef4444;
+  --accent-yellow: #f59e0b;
+  --accent-purple: #a855f7;
+  --navbar-height: 64px;
+  --radius-md:     12px;
+  --radius-lg:     16px;
+  --shadow-card:   0 4px 24px rgba(0,0,0,0.4);
+  --transition:    all 0.2s ease;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.93rem;
+}
+
+.fw-500 { font-weight: 500; }
+.fw-600 { font-weight: 600; }
+.fw-800 { font-weight: 800; }
+
+a { color: var(--accent-blue); text-decoration: none; transition: var(--transition); }
+a:hover { color: #7dd3fc; }
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* ---------- Navbar ---------- */
+#mainNav {
+  background: linear-gradient(135deg, #0c1a2e 0%, #0f2544 100%);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+  height: var(--navbar-height);
+  z-index: 1040;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+}
+
+.brand-icon {
+  font-size: 1.4rem;
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.brand-text {
+  font-weight: 700;
+  font-size: 1.05rem;
+  background: linear-gradient(90deg, #38bdf8, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+#mainNav .nav-link {
+  color: #94a3b8 !important;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 8px;
+  transition: var(--transition);
+  font-size: 0.9rem;
+}
+#mainNav .nav-link:hover,
+#mainNav .nav-link.active {
+  color: #f1f5f9 !important;
+  background: rgba(56, 189, 248, 0.12);
+}
+
+.officer-badge {
+  background: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: var(--accent-blue);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.btn-logout {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #fca5a5;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.82rem;
+  padding: 5px 14px;
+  transition: var(--transition);
+}
+.btn-logout:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #fff;
+  border-color: #ef4444;
+}
+
+/* ---------- Main Content ---------- */
+.main-content {
+  flex: 1;
+  padding-top: 8px;
+}
+
+/* ---------- Page Header ---------- */
+.page-header { margin-bottom: 1.5rem; }
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+.page-subtitle { color: var(--text-secondary); font-size: 0.88rem; }
+
+/* ---------- Section Cards ---------- */
+.section-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.section-card-header {
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ---------- Stat Cards ---------- */
+.stat-card {
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.stat-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.5); }
+.stat-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.stat-card-total   { background: linear-gradient(135deg,#1e293b,#1a2a4a); }
+.stat-card-total::before { background: var(--accent-blue); }
+.stat-card-paid    { background: linear-gradient(135deg,#1e293b,#14291a); }
+.stat-card-paid::before { background: var(--accent-green); }
+.stat-card-unpaid  { background: linear-gradient(135deg,#1e293b,#2a1a1a); }
+.stat-card-unpaid::before { background: var(--accent-red); }
+.stat-card-amount  { background: linear-gradient(135deg,#1e293b,#2a2414); }
+.stat-card-amount::before { background: var(--accent-yellow); }
+.stat-card-collected{ background: linear-gradient(135deg,#1e293b,#1a2a1e); }
+.stat-card-collected::before { background: #34d399; }
+.stat-card-pending { background: linear-gradient(135deg,#1e293b,#2a2025); }
+.stat-card-pending::before { background: var(--accent-purple); }
+
+.stat-icon { font-size: 1.6rem; margin-bottom: 8px; opacity: 0.7; }
+.stat-card-total .stat-icon   { color: var(--accent-blue); }
+.stat-card-paid .stat-icon    { color: var(--accent-green); }
+.stat-card-unpaid .stat-icon  { color: var(--accent-red); }
+.stat-card-amount .stat-icon  { color: var(--accent-yellow); }
+.stat-card-collected .stat-icon { color: #34d399; }
+.stat-card-pending .stat-icon { color: var(--accent-purple); }
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- Tables ---------- */
+.table-dark-custom {
+  color: var(--text-primary);
+  --bs-table-bg: transparent;
+  --bs-table-striped-bg: rgba(255,255,255,0.02);
+  --bs-table-hover-bg: rgba(56,189,248,0.05);
+  border-color: var(--border-color);
+}
+.table-dark-custom thead th {
+  background: rgba(255,255,255,0.04);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+.table-dark-custom tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  vertical-align: middle;
+}
+.table-dark-custom tbody tr:hover { background: rgba(56,189,248,0.04); }
+.table-dark-custom tbody tr:last-child td { border-bottom: none; }
+
+/* ---------- Badges ---------- */
+.badge-paid {
+  background: linear-gradient(135deg,#166534,#15803d);
+  color: #bbf7d0;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge-unpaid {
+  background: linear-gradient(135deg,#7f1d1d,#991b1b);
+  color: #fecaca;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ---------- Challan / Vehicle badges ---------- */
+.challan-badge {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: rgba(99,102,241,0.15);
+  border: 1px solid rgba(99,102,241,0.3);
+  color: #a5b4fc;
+  padding: 3px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.challan-badge-lg {
+  font-family: 'Courier New', monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #a5b4fc;
+}
+.vehicle-text { color: var(--accent-blue); font-weight: 700; }
+.vehicle-text-lg { color: var(--accent-blue); font-size: 1.3rem; font-weight: 800; }
+.fine-amount-lg { font-size: 1.5rem; font-weight: 800; color: var(--accent-yellow); }
+.violation-type-text { color: var(--text-primary); font-size: 0.85rem; }
+
+/* ---------- Action Buttons ---------- */
+.btn-action-view    { background: rgba(56,189,248,0.1);  border:1px solid rgba(56,189,248,0.25); color:#38bdf8; border-radius:7px; }
+.btn-action-edit    { background: rgba(245,158,11,0.1);  border:1px solid rgba(245,158,11,0.25); color:#f59e0b; border-radius:7px; }
+.btn-action-paid    { background: rgba(34,197,94,0.1);   border:1px solid rgba(34,197,94,0.25);  color:#22c55e; border-radius:7px; }
+.btn-action-challan { background: rgba(168,85,247,0.1);  border:1px solid rgba(168,85,247,0.25); color:#a855f7; border-radius:7px; }
+.btn-action-delete  { background: rgba(239,68,68,0.1);   border:1px solid rgba(239,68,68,0.25);  color:#ef4444; border-radius:7px; }
+
+.btn-action-view:hover    { background:rgba(56,189,248,0.25);  color:#fff; }
+.btn-action-edit:hover    { background:rgba(245,158,11,0.25);  color:#fff; }
+.btn-action-paid:hover    { background:rgba(34,197,94,0.25);   color:#fff; }
+.btn-action-challan:hover { background:rgba(168,85,247,0.25);  color:#fff; }
+.btn-action-delete:hover  { background:rgba(239,68,68,0.25);   color:#fff; }
+
+/* ---------- Custom Buttons ---------- */
+.btn-primary-custom {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  border: none; color: #fff; font-weight: 600;
+  border-radius: 10px; padding: 8px 20px;
+  transition: var(--transition); letter-spacing: 0.3px;
+  box-shadow: 0 4px 15px rgba(99,102,241,0.3);
+}
+.btn-primary-custom:hover {
+  background: linear-gradient(135deg, #38bdf8, #818cf8);
+  color: #fff; transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(99,102,241,0.45);
+}
+.btn-warning-custom {
+  background: linear-gradient(135deg, #d97706, #f59e0b);
+  border: none; color: #fff; font-weight: 600;
+  border-radius: 10px; padding: 8px 20px;
+  transition: var(--transition);
+}
+.btn-warning-custom:hover { background: linear-gradient(135deg,#f59e0b,#fbbf24); color:#fff; transform: translateY(-1px); }
+.btn-success-custom {
+  background: linear-gradient(135deg, #15803d, #22c55e);
+  border: none; color: #fff; font-weight: 600;
+  border-radius: 10px; padding: 8px 20px;
+  transition: var(--transition);
+}
+.btn-success-custom:hover { background: linear-gradient(135deg,#22c55e,#4ade80); color:#fff; transform: translateY(-1px); }
+.btn-danger-custom {
+  background: linear-gradient(135deg, #991b1b, #ef4444);
+  border: none; color: #fff; font-weight: 600;
+  border-radius: 10px; padding: 8px 20px;
+  transition: var(--transition);
+}
+.btn-danger-custom:hover { background: linear-gradient(135deg,#ef4444,#f87171); color:#fff; transform: translateY(-1px); }
+
+/* ---------- Forms ---------- */
+.form-control-dark,
+.form-select-dark {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-primary);
+  border-radius: 10px;
+  transition: var(--transition);
+}
+.form-control-dark:focus,
+.form-select-dark:focus {
+  background: rgba(15,23,42,0.95);
+  border-color: var(--accent-blue);
+  color: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.15);
+}
+.form-control-dark::placeholder { color: var(--text-muted); }
+.form-select-dark option { background: var(--bg-secondary); color: var(--text-primary); }
+.form-text { color: var(--text-muted); font-size: 0.78rem; }
+.form-label { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 6px; }
+
+.input-group-text.form-control-dark {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-secondary);
+  border-right: none;
+  border-radius: 10px 0 0 10px;
+}
+.input-group .form-control-dark:not(:first-child) { border-left: none; border-radius: 0 10px 10px 0; }
+.input-group .form-control-dark:last-child { border-radius: 0 10px 10px 0; }
+.input-group .form-control-dark:only-child { border-radius: 10px; }
+
+/* ---------- Alerts ---------- */
+.alert { border-radius: 12px; border: none; }
+.alert-success { background: rgba(34,197,94,0.12); color: #bbf7d0; border: 1px solid rgba(34,197,94,0.25); }
+.alert-danger  { background: rgba(239,68,68,0.12); color: #fecaca; border: 1px solid rgba(239,68,68,0.25); }
+.alert-warning { background: rgba(245,158,11,0.12); color: #fde68a; border: 1px solid rgba(245,158,11,0.25); }
+.alert-info    { background: rgba(56,189,248,0.12); color: #bae6fd; border: 1px solid rgba(56,189,248,0.25); }
+.alert-info-dark { background: rgba(56,189,248,0.08); color: #bae6fd; border: 1px solid rgba(56,189,248,0.2); border-radius: 10px; padding: 12px 16px; font-size: 0.87rem; }
+
+/* ---------- Detail Grid ---------- */
+.detail-grid { display: flex; flex-direction: column; gap: 0; }
+.detail-row {
+  display: flex;
+  align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  gap: 16px;
+}
+.detail-row:last-child { border-bottom: none; }
+.detail-label { min-width: 180px; color: var(--text-secondary); font-size: 0.85rem; font-weight: 500; }
+.detail-value { color: var(--text-primary); font-weight: 600; flex: 1; }
+
+/* ---------- QR Code ---------- */
+.qr-code-img {
+  width: 180px; height: 180px;
+  border-radius: 12px;
+  border: 3px solid rgba(56,189,248,0.3);
+  padding: 6px;
+  background: white;
+  box-shadow: 0 4px 20px rgba(56,189,248,0.2);
+}
+.qr-placeholder { padding: 20px; color: var(--text-muted); }
+
+/* ---------- Auth Pages ---------- */
+.auth-page { background: linear-gradient(135deg, #0c1220 0%, #0f172a 50%, #1a0f2e 100%); }
+
+.auth-card {
+  background: rgba(30,41,59,0.9);
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 20px !important;
+  backdrop-filter: blur(20px);
+}
+
+.auth-logo {
+  width: 72px; height: 72px;
+  background: linear-gradient(135deg,#0ea5e9,#6366f1);
+  border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; color: white;
+  box-shadow: 0 8px 25px rgba(99,102,241,0.4);
+}
+
+.text-muted-light { color: #64748b !important; }
+
+.input-group-dark .input-group-text {
+  background: rgba(15,23,42,0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-right: none;
+  color: #64748b;
+  border-radius: 10px 0 0 10px;
+}
+.input-group-dark .form-control {
+  background: rgba(15,23,42,0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-left: none;
+  color: var(--text-primary);
+  border-radius: 0 10px 10px 0;
+  padding: 10px 14px;
+}
+.input-group-dark .form-control:focus {
+  background: rgba(15,23,42,0.95);
+  border-color: var(--accent-blue);
+  color: var(--text-primary);
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.15);
+}
+.input-group-dark .form-control::placeholder { color: var(--text-muted); }
+.btn-toggle-pw {
+  background: rgba(15,23,42,0.8);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-left: none;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 0 10px 10px 0;
+}
+.btn-toggle-pw:hover { color: var(--accent-blue); background: rgba(56,189,248,0.1); }
+
+.auth-link { color: var(--accent-blue); font-weight: 600; }
+.auth-link:hover { color: #7dd3fc; }
+
+/* ---------- Challan Print Card ---------- */
+.challan-card {
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+.challan-header {
+  background: linear-gradient(135deg, #1e3a5f, #0ea5e9);
+  color: white; padding: 28px 24px 20px;
+}
+.challan-govt-logo { font-size: 2.5rem; }
+.challan-title { font-size: 1.3rem; font-weight: 800; letter-spacing: 1px; margin: 0 0 4px; }
+.challan-subtitle { font-size: 0.85rem; opacity: 0.85; margin: 0; }
+.challan-divider { height: 2px; background: rgba(255,255,255,0.3); margin-top: 12px; border-radius: 2px; }
+
+.challan-number-banner { background: #f0f7ff; border-bottom: 2px solid #0ea5e9; }
+.challan-number-label { font-size: 0.8rem; font-weight: 600; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+.challan-number-value { font-family: 'Courier New',monospace; font-size: 1.3rem; font-weight: 800; color: #1e3a5f; }
+
+.challan-status-paid {
+  background: #dcfce7; color: #166534;
+  padding: 6px 24px; border-radius: 20px;
+  font-weight: 700; font-size: 1rem; border: 2px solid #86efac;
+}
+.challan-status-unpaid {
+  background: #fef9c3; color: #92400e;
+  padding: 6px 24px; border-radius: 20px;
+  font-weight: 700; font-size: 1rem; border: 2px solid #fde68a;
+}
+
+.challan-details-section { padding: 0 24px; }
+.challan-table { border-collapse: collapse; }
+.challan-table td { padding: 10px 8px; border-bottom: 1px solid #e5e7eb; vertical-align: top; }
+.challan-field-label { color: #6b7280; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; min-width: 130px; }
+.challan-field-value { color: #111827; font-weight: 500; }
+.fine-highlight { color: #dc2626; font-size: 1.1rem; }
+
+.challan-footer-section {
+  background: #f9fafb; border-top: 2px dashed #e5e7eb;
+  padding: 16px 24px; margin-top: 8px;
+}
+.challan-qr-img { width: 120px; height: 120px; border: 2px solid #d1d5db; border-radius: 8px; }
+.challan-qr-placeholder { width:120px;height:120px; background:#e5e7eb; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:700; color:#6b7280; margin: auto; }
+.challan-qr-text { font-size: 0.72rem; color: #6b7280; }
+.challan-instructions { font-size: 0.82rem; color: #374151; background: #fff; border-radius: 8px; padding: 12px; border: 1px solid #e5e7eb; }
+.challan-instructions ul { padding-left: 16px; }
+.challan-instructions li { margin-bottom: 4px; }
+
+.challan-stamp-area { padding: 16px 24px 20px; }
+.challan-sig-line { border-top: 1px solid #9ca3af; width: 80%; margin: 0 auto 6px; }
+.challan-sig-label { font-size: 0.75rem; color: #9ca3af; margin: 0; }
+
+/* ---------- Empty State ---------- */
+.empty-state { color: var(--text-muted); }
+
+/* ---------- Footer ---------- */
+.app-footer {
+  background: rgba(255,255,255,0.03);
+  border-top: 1px solid var(--border-color);
+  padding: 14px 0;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 32px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .page-title { font-size: 1.2rem; }
+  .stat-value { font-size: 1.2rem; }
+  .detail-label { min-width: 130px; }
+  .detail-row { flex-direction: column; gap: 4px; }
+  .challan-table td { font-size: 0.82rem; }
+  .challan-number-value { font-size: 1rem; }
+}
+@media (max-width: 576px) {
+  .container-fluid { padding-left: 12px; padding-right: 12px; }
+  .section-card-header { padding: 12px 14px; }
+  .stat-card { padding: 14px; }
+  .btn-primary-custom { padding: 7px 14px; font-size: 0.88rem; }
+}

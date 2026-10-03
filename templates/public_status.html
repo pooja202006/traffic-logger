@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Traffic Violation Public Status – Challan {{ violation.challan_number }}"/>
+  <title>Violation Status – {{ violation.challan_number }}</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+    .public-navbar {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 24px;
+    }
+    .public-brand {
+      color: #38bdf8;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+    }
+    .public-brand i { margin-right: 8px; }
+    .status-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+    .status-header {
+      background: linear-gradient(135deg, #0ea5e9, #2563eb);
+      padding: 32px;
+      text-align: center;
+      color: white;
+    }
+    .status-header h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+    .challan-badge-pub {
+      background: rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: 4px 16px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      display: inline-block;
+      margin-top: 8px;
+    }
+    .status-body { padding: 32px; }
+    .paid-badge {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: white; font-size: 1.2rem; font-weight: 800;
+      padding: 12px 40px; border-radius: 50px;
+      display: inline-block; letter-spacing: 2px;
+    }
+    .unpaid-badge {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white; font-size: 1.2rem; font-weight: 800;
+      padding: 12px 40px; border-radius: 50px;
+      display: inline-block; letter-spacing: 2px;
+    }
+    .info-row { display: flex; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .info-row:last-child { border-bottom: none; }
+    .info-label { color: #94a3b8; font-size: 0.85rem; font-weight: 500; min-width: 160px; }
+    .info-value { color: #f1f5f9; font-weight: 600; }
+    .footer-note { color: #64748b; font-size: 0.78rem; text-align: center; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <!-- Public Navbar -->
+  <nav class="public-navbar d-flex align-items-center justify-content-between">
+    <a class="public-brand" href="#">
+      <i class="bi bi-shield-fill-check"></i>Smart Traffic Logger
+    </a>
+    <span class="text-muted small"><i class="bi bi-globe me-1"></i>Public Violation Status</span>
+  </nav>
+
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-7 col-md-9">
+
+        <div class="status-card shadow-lg">
+          <!-- Header -->
+          <div class="status-header">
+            <div style="font-size:2.5rem; margin-bottom:8px;">🚦</div>
+            <h1>Traffic Violation Status</h1>
+            <p class="mb-2 opacity-75">Government Traffic Management Authority</p>
+            <div class="challan-badge-pub">{{ violation.challan_number }}</div>
+          </div>
+
+          <!-- Status -->
+          <div class="text-center py-4" style="background: rgba(0,0,0,0.2);">
+            {% if violation.payment_status == 'Paid' %}
+              <span class="paid-badge"><i class="bi bi-check-circle-fill me-2"></i>PAID</span>
+              <p class="text-success mt-2 mb-0 small fw-600">Fine has been paid successfully.</p>
+            {% else %}
+              <span class="unpaid-badge"><i class="bi bi-clock-fill me-2"></i>UNPAID</span>
+              <p class="text-danger mt-2 mb-0 small fw-600">Fine is pending. Please pay at the earliest.</p>
+            {% endif %}
+          </div>
+
+          <!-- Details -->
+          <div class="status-body">
+            <div class="info-row">
+              <div class="info-label"><i class="bi bi-car-front-fill me-2"></i>Vehicle Number</div>
+              <div class="info-value">{{ violation.vehicle_number }}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label"><i class="bi bi-exclamation-triangle me-2"></i>Violation Type</div>
+              <div class="info-value">{{ violation.violation_type }}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label"><i class="bi bi-geo-alt me-2"></i>Location</div>
+              <div class="info-value">{{ violation.location }}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label"><i class="bi bi-calendar me-2"></i>Violation Date</div>
+              <div class="info-value">{{ violation.violation_date.strftime('%d %B %Y') }}</div>
+            </div>
+            <div class="info-row">
+              <div class="info-label"><i class="bi bi-currency-rupee me-2"></i>Fine Amount</div>
+              <div class="info-value" style="color: #f59e0b; font-size: 1.1rem;">₹{{ "%.2f"|format(violation.fine_amount) }}</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="footer-note mt-3">
+          <i class="bi bi-info-circle me-1"></i>
+          This is an official government traffic violation record.
+          For queries, contact your nearest Traffic Authority Office.
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

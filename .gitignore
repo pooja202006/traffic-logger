@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+venv/
+env/
+.env
+instance/traffic.db
+static/qrcodes/*.png
+*.egg-info/
+dist/
+build/
+.DS_Store
+Thumbs.db
